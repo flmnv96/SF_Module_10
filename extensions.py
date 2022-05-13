@@ -9,19 +9,19 @@ class ConvertionException(Exception):
 
 class CryptoConverter:
     @staticmethod
-    def convert(quote: str, base: str, amount: str):
+    def get_price(base: str, quote: str, amount: str):
         if quote == base:
-            raise ConvertionException(f'Невозможно перевести одинаковые валюты\n{amount} {base} равен {amount} {base}.')
-
-        try:
-            quote_ticker = keys[quote]
-        except KeyError:
-            raise ConvertionException(f'Не удалось обработать валюту "{quote}".')
+            raise ConvertionException(f'Невозможно перевести одинаковые валюты\n{amount} {base} равен {amount} {quote}.')
 
         try:
             base_ticker = keys[base]
         except KeyError:
             raise ConvertionException(f'Не удалось обработать валюту "{base}".')
+
+        try:
+            quote_ticker = keys[quote]
+        except KeyError:
+            raise ConvertionException(f'Не удалось обработать валюту "{quote}".')
 
         try:
             amount = float(amount)

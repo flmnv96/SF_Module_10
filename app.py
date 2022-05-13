@@ -22,7 +22,7 @@ def values(message: telebot.types.Message):
 
 
 @bot.message_handler(content_types=['text', ])
-def convert(message: telebot.types.Message):
+def get_price(message: telebot.types.Message):
     try:
         values = message.text.split(' ')
 
@@ -30,7 +30,7 @@ def convert(message: telebot.types.Message):
             raise ConvertionException('Неверное число параметров')
 
         quote, base, amount = values
-        total_base = CryptoConverter.convert(quote, base, amount)
+        total_base = CryptoConverter.get_price(base, quote, amount)
     except ConvertionException as e:
         bot.reply_to(message, f'Ощибка ввода пользователя.\n{e}')
 
